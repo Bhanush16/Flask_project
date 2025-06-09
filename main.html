@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Weather Dashboard</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+    input, button {
+      padding: 8px;
+      margin: 5px;
+    }
+    pre {
+      background: #f4f4f4;
+      padding: 10px;
+      border: 1px solid #ccc;
+      overflow-x: auto;
+    }
+    .links a {
+      margin-right: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Real-Time Weather Dashboard</h1>
+
+  <input type="text" id="cityInput" placeholder="Enter city" />
+  <button onclick="getWeather()">Get Current Weather</button>
+
+  <h2>Current Weather</h2>
+  <pre id="currentWeather">--</pre>
+
+  <div class="links" id="downloadLinks" style="display:none;">
+    <h3>Download Files</h3>
+    <a id="csvLink" href="#" download>CSV</a>
+    <a id="excelLink" href="#" download>Excel</a>
+    <a id="xmlLink" href="#" download>XML</a>
+  </div>
+
+
+
+  <script>
+    function getWeather() {
+      const city = document.getElementById("cityInput").value || "London";
+      fetch(`/get_weather_data?city=${city}`)
+        .then(res => res.json())
+        .then(data => {
+          document.getElementById("currentWeather").textContent = JSON.stringify(data, null, 2);
+          if (!data.error) {
+            document.getElementById("csvLink").href = `/download_csv`;
+            document.getElementById("excelLink").href = `/download_excel`;
+            document.getElementById("xmlLink").href = `/download_xml`;
+            document.getElementById("downloadLinks").style.display = 'block';
+          } else {
+            document.getElementById("downloadLinks").style.display = 'none';
+          }
+        });
+    }
+
+
+  </script>
+
+</body>
+</html>

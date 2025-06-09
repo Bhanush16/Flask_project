@@ -1,0 +1,5 @@
+API_KEY = 'dec906fd33268e279b25a78d61388a65'
+CITY = 'Hyderabad'
+CSV_FILE = 'weather_data.csv'
+EXCEL_FILE = 'weather_data.xlsx'
+XML_FILE = 'weather_data.xml'
